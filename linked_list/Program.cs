@@ -1,87 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace linked_List
+namespace LinkedList
 {
-    class LinkedList<T>
+    class Program
     {
-        // Private class ListNode - external users of the linked list do not
-        // need to know how the elements in the list are actaully held
-        private class ListNode
+        static void Main(string[] args)
         {
-            // A ListNode has an element and a pointer to the next node
-            public T Element { get; set; }
-            public ListNode NextNode { get; set; }
+            Console.WriteLine("Success");
 
-            // Instantiation  method to create a list node of type T
-            public ListNode(T element)
+            LinkedList<string> shoppingList = new LinkedList<string>();
+            shoppingList.Add("Bob");
+            shoppingList.Add("Bill");
+            shoppingList.Add("Ben");
+            shoppingList.Add("Brian");
+            shoppingList.Add("Barry");
+            shoppingList.RemoveAt(1);
+            shoppingList.Remove("Ben");
+            for (int i = 0; i < shoppingList.Count; i++)
             {
-                this.Element = element;
-                NextNode = null;
+                Console.WriteLine("List item {0}:{1}",i,shoppingList[i]);
             }
-
-            public ListNode(T element, ListNode prevNode)
-            {
-                this.Element = element;
-                prevNode.NextNode = this;
-            }
-        }
-
-        private ListNode head;
-        private ListNode tail;
-        private int count;
-
-        // Instantiation method, head and tail are null
-        public LinkedList()
-        {
-            this.head = null;
-            this.tail = null;
-            this.count = 0;
-        }
-
-        // define the public get method to return the count property
-        public int Count
-        {
-            get
-            {
-                return this.count;
-            }
-        }
-
-        // Add method to add items to the list
-        public void Add(T item)
-        {
-            if (this.head == null)
-            {
-                // we have an empty list, create a new head and tail 
-                // (they point at the same node)
-                this.head = new ListNode(item);
-                this.tail = this.head;
-            }
-            else
-            {
-                // we have a non empty list, so append new item after tail
-                ListNode newNode = new ListNode(item, this.tail);
-                this.tail = newNode;
-            }
-            this.count++;
-        }
-
-        // Access items at a given index in the list
-        public T this[int index]
-        {
-            // N.B. needs error checking in case index is out of range
-            get
-            {
-                // start at the head of the list, and move index number of places in
-                ListNode currentNode = this.head;
-                for (int i = 0; i < index; i++)
-                {
-                    currentNode = currentNode.NextNode;
-                }
-                return currentNode.Element;
-            }
+            Console.WriteLine("Index of 'Barry' = {0}",shoppingList.IndexOf("Barry"));
         }
     }
 }
